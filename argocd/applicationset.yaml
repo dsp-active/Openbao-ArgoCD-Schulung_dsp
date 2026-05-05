@@ -1,0 +1,31 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: demo-applicationset
+  namespace: argocd
+spec:
+  goTemplate: true
+  generators:
+  - git:
+      repoURL: https://git.active-logistics.com/public/Openbao-ArgoCD-Schulung_dsp.git
+      revision: HEAD
+      directories:
+      - path: applications/*
+  template:
+    metadata:
+      finalizers:
+        - "resources-finalizer.argocd.argoproj.io"
+      name: '{{.path.basenameNormalized}}'
+    spec:
+      project: "default"
+      sources:
+      - repoURL: "{{.repoURL}}"
+        targetRevision: "{{.revision}}"
+        path: '{{.path.path}}'
+      destination:
+        namespace: '{{.path.basenameNormalized}}'
+        name: "in-cluster"
+      syncPolicy:
+        syncOptions:
+          - CreateNamespace=true
+          - PruneLast=true

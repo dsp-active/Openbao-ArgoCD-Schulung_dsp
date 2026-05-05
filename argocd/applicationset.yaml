@@ -19,7 +19,7 @@ spec:
     spec:
       project: "default"
       sources:
-      - repoURL: "{{.repoURL}}"
+      - repoURL: https://github.com/dsp-active/Openbao-ArgoCD-Schulung_dsp.git
         targetRevision: HEAD
         path: '{{.path.path}}'
       destination:

@@ -20,7 +20,7 @@ spec:
       project: "default"
       sources:
       - repoURL: "{{.repoURL}}"
-        targetRevision: "{{.revision}}"
+        targetRevision: HEAD
         path: '{{.path.path}}'
       destination:
         namespace: '{{.path.basenameNormalized}}'
